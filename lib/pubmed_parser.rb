@@ -1,11 +1,9 @@
 # lib/pubmed_parser.rb
 
-require 'lib/pubmed_parser_helper'
-require 'lib/pubmed_abstract_parser'
+require './lib/pubmed_parser_helper'
+require './lib/pubmed_abstract_parser'
 
 class PubmedParser
-
-  attr_reader :response
 
   def initialize(response)
     @response = response
@@ -17,6 +15,7 @@ class PubmedParser
     @abstracts.each do |abstract| 
       abstract_parser = PubmedAbstractParser.new abstract
       abstract_parser.parse
+      abstract_parser.store
     end
   end
 
@@ -27,8 +26,6 @@ class PubmedParser
   end
 
   def split_response
-    @abstracts = abs_1.split(/\n\n/).drop(1)
+    @abstracts = @response.split(/\n\n\n\d+\./).drop(1)
   end
-
-  def 
 end

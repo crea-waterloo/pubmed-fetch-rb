@@ -18,7 +18,7 @@ abs_1 = abses_toks[1]
 
 abs_toks = abs_1.split(/\n\n/)
 
-abs_pmid = abs_toks[6].match(/^PMID: (\d+)/)[1]
+abs_pmid = abs_toks[-1].match(/^PMID: (\d+)/)[1]
 
 abs_title = abs_toks[1]
 
