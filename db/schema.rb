@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "pmid",         null: false
     t.text    "title",        null: false
     t.text    "authors",      null: false
+    t.text    "search_term",  null: false
     t.text    "section_name", null: false
     t.text    "section_body", null: false
   end

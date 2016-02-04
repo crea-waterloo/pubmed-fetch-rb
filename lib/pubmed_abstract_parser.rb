@@ -4,14 +4,14 @@ require './lib/pubmed_abstract.rb'
 
 class PubmedAbstractParser
 
-  def initialize(abstract)
+  def initialize(abstract, search_term)
     @abstract = abstract
+    @search_term = search_term
   end
 
   def parse
     tokenize_abstract
     sanitize_tokens
-    # @tokens.print_nicely
     parse_pmid
     parse_title
     parse_authors
@@ -25,6 +25,7 @@ class PubmedAbstractParser
           pmid: @pmid,
           title: @title,
           authors: @authors,
+          search_term: @search_term,
           section_name: "ALL",
           section_body: @body
         }).save
@@ -34,18 +35,19 @@ class PubmedAbstractParser
             pmid: @pmid,
             title: @title,
             authors: @authors,
+            search_term: @search_term,
             section_name: body_part[0],
             section_body: body_part[1]
           }).save
         end
       end
     else
-      puts "--- NOTHING STORED --- "
-      self.print
+      puts "--- STORE:MISSING ---"
+      self.debug
     end
   end
 
-  def print
+  def debug
     puts "---------------------"
     puts "pmid: #{@pmid}"
     puts "title: #{@title}"
@@ -62,7 +64,7 @@ class PubmedAbstractParser
 
   def sanitize_tokens
     @tokens.select! do |token|
-      token.match(/Author information: |copyright|Copyright|©/).nil?
+      token.match(/Author information|copyright|Copyright|©/).nil?
     end
   end
 

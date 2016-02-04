@@ -1,3 +1,51 @@
+PUBMED_ABSTRACTS = <<END
+
+3. J Biol Chem. 2015 Feb 6;290(6):3333-48. doi: 10.1074/jbc.M114.606913. Epub 2014
+Dec 10.
+
+MDA-9/syntenin is essential for factor VIIa-induced signaling, migration, and
+metastasis in melanoma cells.
+
+Aissaoui H(1), Prévost C(1), Boucharaba A(2), Sanhadji K(3), Bordet JC(1),
+Négrier C(1), Boukerche H(4).
+
+Author information: 
+(1)From the EA 4174, Onco-Hematology Unit, University Claude Bernard, INSERM,
+Lyon 1, 69372 Lyon, France. (2)the Ecole Polytechnique Fédérale de Lausanne,
+CH-1015 Lausanne, Switzerland, and. (3)the Transplantation and Clinical
+Immunology Department, Edouart Herriot Hospital, Lyon, France. (4)From the EA
+4174, Onco-Hematology Unit, University Claude Bernard, INSERM, Lyon 1, 69372
+Lyon, France, habib.boukerche@univ-lyon1.fr.
+
+Retraction in
+    J Biol Chem. 2015 Oct 23;290(43):25847.
+
+Melanoma differentiation associated gene-9 (MDA-9), also known as syntenin, is a 
+novel gene that positively regulates cancer cell motility, invasion, and
+metastasis through distinct biochemical and signaling pathways, but how
+MDA-9/syntenin is regulated in response to signals with the extracellular
+environment and promotes tumor progression is unclear. We now demonstrate that
+MDA-9/syntenin is dramatically up-regulated by a combination of rFVIIa and factor
+F(X) in malignant melanoma. Induction of MDA-9/syntenin in melanoma was found to 
+occur in a thrombin-independent signaling pathway and involves the
+PAR-1/c-Src/Rho GTPases Rac1 and Cdc42/c-Jun N-terminal kinase axis resulting in 
+the activation of paxillin, NF-κB, and matrix metalloproteinase-2 (MMP-2).
+MDA-9/syntenin physically interacts with c-Src through its PDZ binding motif
+following stimulation of melanoma cells with rFVIIa and FX. We also document that
+induction of this signaling pathway is required for TF·FVIIa·Xa-induced cell
+migration, invasion, and metastasis by melanoma cells. The present finding
+uncovers a novel role of MDA-9/syntenin as an important
+TF·FVIIa·Xa/PAR-1-regulated gene that initiates a signaling circuit essential for
+cell motility and invasion of metastatic melanoma. In these contexts, targeting
+TF·FVIIa·Xa and its relevant downstream targets such as MDA-9/syntenin, may
+represent a novel therapeutic strategy to control the evolution of neoplastic
+cells.
+
+© 2015 by The American Society for Biochemistry and Molecular Biology, Inc.
+
+PMCID: PMC4319005 [Available on 2016-02-06]
+PMID: 25505176  [PubMed - indexed for MEDLINE]
+
 
 1. Metabolism. 2015 Nov;64(11):1521-9. doi: 10.1016/j.metabol.2015.07.021. Epub 2015
 Jul 30.
@@ -499,4 +547,15 @@ anticipated therapeutic responses to ischemia-reperfusion injury.
 
 PMCID: PMC4517214
 PMID: 26153425  [PubMed - indexed for MEDLINE]
+
+END
+
+PUBMED_FETCH_ERROR = <<END
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE eEfetchResult PUBLIC "-//NLM//DTD efetch 20131226//EN" "http://eutils.ncbi.nlm.nih.gov/eutils/dtd/20131226/efetch.dtd">
+<eFetchResult>
+    <ERROR>Unable to obtain query #1</ERROR>
+</eFetchResult>
+
+END
 

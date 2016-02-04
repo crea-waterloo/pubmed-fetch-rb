@@ -6,6 +6,7 @@ CREATE TABLE pubmed_abstracts (
   pmid INTEGER NOT NULL,
   title TEXT NOT NULL,
   authors TEXT NOT NULL,
+  search_term TEXT NOT NULL,
   section_name TEXT NOT NULL,
   section_body TEXT NOT NULL
 );
