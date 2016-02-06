@@ -40,6 +40,8 @@ class PubmedAbstractParser
           section_name: "ALL",
           section_body: @body
         }).save
+        puts @body
+        puts
       else
         @body_parts.each do |body_part|
           PubmedAbstract.new({
@@ -50,6 +52,8 @@ class PubmedAbstractParser
             section_name: body_part[0],
             section_body: body_part[1]
           }).save
+          puts body_part[1]
+          puts
         end
       end
       true

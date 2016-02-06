@@ -7,7 +7,7 @@ require 'active_record/schema_dumper'
 require './lib/pubmed_fetcher.rb'
 require './debug_constants.rb'
 
-ActiveRecord::Base.logger = Logger.new(STDOUT)
+# ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 ActiveRecord::Base.establish_connection(
   :adapter => 'postgresql',
