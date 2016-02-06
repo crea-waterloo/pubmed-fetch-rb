@@ -1,21 +1,32 @@
 # lib/pubmed_abstract_parser.rb
 
+require './vendor/logging'
 require './lib/pubmed_abstract.rb'
 
 class PubmedAbstractParser
 
+  include Logging
+
   def initialize(abstract, search_term)
     @abstract = abstract
     @search_term = search_term
+    @elements = {
+      :pmid => true,
+      :title => true,
+      :authors => true,
+      :author_info => false,
+      :copyright => false,
+      :body => false
+    }
   end
 
   def parse
     tokenize_abstract
     sanitize_tokens
-    parse_pmid
-    parse_title
-    parse_authors
-    tokenize_body
+    parse_pmid if @elements[:pmid]
+    parse_title if @elements[:title]
+    parse_authors if @elements[:authors]
+    tokenize_body if @elements[:body]
   end
 
   def store
@@ -41,31 +52,42 @@ class PubmedAbstractParser
           }).save
         end
       end
+      true
     else
-      puts "--- STORE:MISSING ---"
-      self.debug
+      logger.debug('Pubmed Abstract Parser') { "Missing fields for article #{@pmid}" }
+      false
     end
   end
 
   def debug
-    puts "---------------------"
-    puts "pmid: #{@pmid}"
-    puts "title: #{@title}"
-    puts "authors: #{@authors}"
-    puts "body: #{@body || @body_parts}"
-    puts "---------------------"
+    "pmid: #{@pmid}\n" + 
+    "title: #{@title}\n" + 
+    "authors: #{@authors}\n" + 
+    "body: #{@body || @body_parts}"
   end
 
   private
 
   def tokenize_abstract
     @tokens = @abstract.split(/\n\n/)
+    @token_size = @tokens.size
   end
 
   def sanitize_tokens
     @tokens.select! do |token|
-      token.match(/Author information|copyright|Copyright|©/).nil?
+      author_info_matched = token.match(/Author information/)
+      copyright_matched = token.match(/copyright|Copyright|©/)
+      @elements[:author_info] = true if author_info_matched
+      @elements[:copyright] = true if copyright_matched
+      not (author_info_matched or copyright_matched)
     end
+    @token_real_size = @tokens.size
+    if @token_real_size <= 4
+      # logger.info('Pubmed Abstract Parser'){ "No Abstract Body" }
+    else
+      @elements[:body] = true
+    end
+        
   end
 
   def parse_pmid
@@ -81,8 +103,9 @@ class PubmedAbstractParser
   end
 
   def tokenize_body
-    body = @tokens[-2].flatten
-    body_parts = body.split(/([A-Z]+): /)
+    body = @tokens[-2]
+    body_parts = body.split(/\n([A-Z]+): /)
+    # body_parts.each { |b| b.flatten! }
     if body_parts.length == 1
       @body = body
     else

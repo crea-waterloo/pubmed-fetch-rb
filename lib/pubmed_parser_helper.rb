@@ -10,4 +10,8 @@ class String
   def flatten
     self.gsub(/\n/, ' ')
   end
+
+  def flatten!
+    self.gsub!(/\n/, ' ')
+  end
 end

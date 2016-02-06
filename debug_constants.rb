@@ -559,3 +559,13 @@ PUBMED_FETCH_ERROR = <<END
 
 END
 
+PUBMED_ABSTRACT_MISSING_BODY = <<END
+Nat Med. 2016 Feb 4;22(2):217. doi: 10.1038/nm0216-217b.
+
+Corrigendum: Metformin activates a duodenal Ampk-dependent pathway to lower
+hepatic glucose production in rats.
+
+Duca FA, Côté CD, Rasmussen BA, Zadeh-Tahmasebi M, Rutter GA, Filippi BM, Lam TK.
+
+PMID: 26845410  [PubMed - as supplied by publisher]
+END

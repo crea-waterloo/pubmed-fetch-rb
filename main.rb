@@ -25,11 +25,6 @@ end
 
 search_terms_file = "docs/terms"
 File.readlines(search_terms_file).each do |line|
-  # puts line
+  fetcher = PubmedFetcher.new(line.chomp)
+  fetcher.fetch
 end
-
-parser_1 = PubmedParser.new(PUBMED_FETCH_ERROR, 'nothing')
-parser_1.parse
-
-parser_2 = PubmedParser.new(PUBMED_ABSTRACTS, 'glucose')
-parser_2.parse
