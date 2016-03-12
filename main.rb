@@ -7,7 +7,7 @@ require 'active_record/schema_dumper'
 require './lib/pubmed_fetcher.rb'
 require './debug_constants.rb'
 
-# ActiveRecord::Base.logger = Logger.new(STDOUT)
+ActiveRecord::Base.logger = Logger.new('./active_record.log')
 
 ActiveRecord::Base.establish_connection(
   :adapter => 'postgresql',
@@ -24,7 +24,10 @@ File.open(filename, "w:utf-8") do |file|
 end
 
 search_terms_file = "docs/terms"
+
+# threads = []
 File.readlines(search_terms_file).each do |line|
-  fetcher = PubmedFetcher.new(line.chomp)
-  fetcher.fetch
+#   threads << Thread.new { PubmedFetcher.new(line.chomp).fetch }
+  PubmedFetcher.new(line.chomp).fetch
 end
+# threads.each { |t| t.join }
