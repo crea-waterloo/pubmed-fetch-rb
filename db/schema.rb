@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 0) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "filtered_relations", id: false, force: :cascade do |t|
+  create_table "filtered_relations", force: :cascade do |t|
     t.string  "subject",   null: false
     t.string  "predicate", null: false
     t.string  "object",    null: false

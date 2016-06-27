@@ -18,7 +18,10 @@ class PubmedFetcher
     :field => 'all',
     :mindate => 1960,
     :maxdate => Time.now.year,
-    :batch_size => 100
+    :batch_size => 100,
+    :db => true,
+    :stdout => true,
+    :stdout_split => false
   }
 
   # TODO Make documentation for options!
@@ -88,7 +91,7 @@ class PubmedFetcher
       :webenv => @webenv
     }
     response = request(:efetch, param)
-    pubmed_parser = PubmedParser.new(response, @term)
+    pubmed_parser = PubmedParser.new(response, @term, @options)
     success = pubmed_parser.parse
 
     logger.info("Pubmed Fetcher: #{@term}") { "#{success} out of #{@options[:batch_size]} successful" }

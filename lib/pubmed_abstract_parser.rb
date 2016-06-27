@@ -7,7 +7,7 @@ class PubmedAbstractParser
 
   include Logging
 
-  def initialize(abstract, search_term)
+  def initialize(abstract, search_term, options)
     @abstract = abstract
     @search_term = search_term
     @elements = {
@@ -18,6 +18,7 @@ class PubmedAbstractParser
       :copyright => false,
       :body => false
     }
+    @options = options
   end
 
   def parse
@@ -29,7 +30,7 @@ class PubmedAbstractParser
     tokenize_body if @elements[:body]
   end
 
-  def store
+  def store_db
     if check_fields
       if @body
         PubmedAbstract.new({
@@ -40,10 +41,10 @@ class PubmedAbstractParser
           section_name: "ALL",
           section_body: @body
         }).save
-        @body.flatten.split('.').each do |sentence|
-          puts sentence
-        end
-
+        # @body.flatten.split('. ').each do |sentence|
+        #   puts sentence
+        # end
+        puts @body.flatten
       else
         @body_parts.each do |body_part|
           PubmedAbstract.new({
@@ -54,10 +55,38 @@ class PubmedAbstractParser
             section_name: body_part[0],
             section_body: body_part[1]
           }).save
-          body_part[1].flatten.split('.').each do |sentence|
+          # body_part[1].flatten.split('. ').each do |sentence|
+          #   puts sentence
+          # end
+          puts body_part[1].flatten
+        end
+      end
+      true
+    else
+      logger.debug('Pubmed Abstract Parser') { "Missing fields for article #{@pmid}" }
+      false
+    end
+  end
+
+  def store_stdout
+    if check_fields
+      if @body
+        if @options[:stdout_split]
+          @body.flatten.split('. ').each do |sentence|
             puts sentence
           end
-
+        else
+          puts @body.flatten
+        end
+      else
+        @body_parts.each do |body_part|
+          if @options[:stdout_split]
+            body_part[1].flatten.split('. ').each do |sentence|
+              puts sentence
+            end
+          else
+            puts body_part[1].flatten
+          end
         end
       end
       true
